@@ -4,15 +4,15 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   // Base path para GitHub Pages
-  base: '/riesgird-web/',
-  
+  base: '/Riesgird-web/',
+
   // Configuración de servidor para desarrollo
   server: {
     port: 4200,
     host: '0.0.0.0',
     open: false,
   },
-  
+
   // Configuración de build
   build: {
     sourcemap: false,
@@ -25,12 +25,12 @@ export default defineConfig({
       },
     },
   },
-  
+
   // Optimizaciones para dependencias
   optimizeDeps: {
     include: [
       '@angular/core',
-      '@angular/common', 
+      '@angular/common',
       '@angular/router',
       '@angular/forms',
       'rxjs',
