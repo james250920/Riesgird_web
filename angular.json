@@ -34,7 +34,7 @@
           },
           "configurations": {
             "production": {
-              "baseHref": "/riesgird-web/",
+              "baseHref": "/Riesgird_web/",
               "budgets": [
                 {
                   "type": "initial",

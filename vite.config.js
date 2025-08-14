@@ -4,7 +4,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   // Base path para GitHub Pages
-  base: '/Riesgird-web/',
+  base: '/Riesgird_web/',
 
   // Configuración de servidor para desarrollo
   server: {
