@@ -1,6 +1,5 @@
 
 import { defineConfig } from 'vite';
-  // Base path para GitHub Pages
 
 export default defineConfig({
   // Base path para GitHub Pages
