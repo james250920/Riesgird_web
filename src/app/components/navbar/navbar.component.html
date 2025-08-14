@@ -1,0 +1,73 @@
+<header
+  class="navbar"
+  [class.navbar--loading]="appState().isLoading"
+  [attr.aria-label]="ariaLabel"
+  [id]="id"
+  (keydown)="onKeydown($event)">
+
+  <div class="navbar__container">
+    <!-- Brand/Logo -->
+    <a
+      routerLink="/"
+      class="navbar__brand"
+      [attr.aria-label]="'Ir a página de inicio'">
+      RiesGIRD-ACC / Perú
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="navbar__nav" role="navigation" aria-label="Navegación principal">
+      @for (item of navigationItems(); track trackByNavItem($index, item)) {
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+          class="navbar__nav-item"
+          [attr.aria-label]="'Ir a ' + item.label"
+          (click)="onNavigationItemClick(item)">
+          {{ item.label }}
+        </a>
+      }
+    </nav>
+
+    <!-- Mobile Menu Toggle -->
+    <button
+      type="button"
+      class="navbar__mobile-toggle"
+      [attr.aria-expanded]="isMenuOpen()"
+      [attr.aria-controls]="'mobile-menu-' + id"
+      aria-label="Abrir menú de navegación"
+      (click)="toggleMobileMenu()">
+
+      <span
+        class="navbar__mobile-icon"
+        [class.open]="isMenuOpen()"
+        aria-hidden="true">
+        ☰
+      </span>
+    </button>
+  </div>
+
+  <!-- Mobile Navigation Menu -->
+  @if (isMenuOpen()) {
+    <div
+      class="navbar__mobile-menu entering"
+      [attr.id]="'mobile-menu-' + id"
+      role="navigation"
+      aria-label="Navegación móvil">
+
+      <nav class="navbar__mobile-nav">
+        @for (item of navigationItems(); track trackByNavItem($index, item)) {
+          <a
+            [routerLink]="item.path"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+            class="navbar__mobile-nav-item"
+            [attr.aria-label]="'Ir a ' + item.label"
+            (click)="onNavigationItemClick(item)">
+            {{ item.label }}
+          </a>
+        }
+      </nav>
+    </div>
+  }
+</header>

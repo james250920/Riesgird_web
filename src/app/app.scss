@@ -1,0 +1,74 @@
+// App Component Styles
+// ===================
+
+// Variables de layout
+$header-height: 4rem;
+$footer-height: auto;
+
+// Contenedor principal de la aplicación
+.app {
+  @apply min-h-screen flex flex-col bg-gray-50;
+
+  .dark & {
+    @apply bg-gray-900;
+  }
+}
+
+// Header de la aplicación
+.app__header {
+  flex-shrink: 0;
+  min-height: $header-height;
+}
+
+// Contenido principal
+.app__main {
+  @apply flex-1 w-full;
+  min-height: calc(100vh - #{$header-height});
+}
+
+// Footer de la aplicación
+.app__footer {
+  flex-shrink: 0;
+  margin-top: auto;
+}
+
+// Estados de carga global
+.app--loading {
+  .app__main {
+    @apply opacity-50 pointer-events-none;
+  }
+}
+
+// Overlay para estados de carga
+.app__loading-overlay {
+  @apply fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm;
+
+  .loading-spinner {
+    @apply w-12 h-12 border-4 border-primary-200 border-t-primary-600 rounded-full animate-spin;
+  }
+}
+
+// Mejoras de accesibilidad
+@media (prefers-reduced-motion: reduce) {
+  .loading-spinner {
+    animation: none;
+    @apply border-primary-600;
+  }
+}
+
+// Skip links para accesibilidad
+.skip-link {
+  @apply absolute -top-10 left-4 z-50 bg-primary-600 text-white px-4 py-2 rounded-md;
+  @apply focus:top-4 transition-all duration-200;
+
+  &:focus {
+    @apply outline-none ring-2 ring-white ring-offset-2 ring-offset-primary-600;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .app__main {
+    min-height: calc(100vh - 3.5rem); // Altura ajustada para móvil
+  }
+}

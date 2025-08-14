@@ -1,0 +1,79 @@
+<footer
+  class="footer"
+  [class.footer--loading]="appState().isLoading"
+  [attr.aria-label]="ariaLabel"
+  [id]="id"
+  role="contentinfo">
+
+  <div class="footer__container">
+    <!-- Grid principal del footer -->
+    <div class="footer__grid">
+      <!-- Información principal -->
+      <div class="footer__section">
+        <div class="footer__brand">
+          <h3 class="footer__brand-text">RiesGIRD-ACC / Perú</h3>
+        </div>
+        <div class="footer__section-content">
+          <p>Red de Instituciones de Educación Superior para la Gestión Integral del Riesgo de Desastres - Academia del Cambio Climático</p>
+          <p><strong>Periodos:</strong> 2024–2027 (Perú), 2024–2026 (LAC)</p>
+        </div>
+      </div>
+
+      <!-- Información de contacto -->
+      <div class="footer__section">
+        <h4 class="footer__section-title">Secretaría Técnica</h4>
+        <div class="footer__contact">
+          <div class="footer__contact-item">
+            <span class="icon" aria-hidden="true">👤</span>
+            <span>Mary Mollo Medina</span>
+          </div>
+          <div class="footer__contact-item">
+            <span class="icon" aria-hidden="true">✉️</span>
+            <a href="mailto:mmollo@esan.edu.pe" class="footer__nav-item">
+              mmollo&#64;esan.edu.pe
+            </a>
+          </div>
+          <div class="footer__contact-item">
+            <span class="icon" aria-hidden="true">📞</span>
+            <a href="tel:+51998678236" class="footer__nav-item">
+              +51 998 678 236
+            </a>
+          </div>
+          <div class="footer__contact-item">
+            <span class="icon" aria-hidden="true">📧</span>
+            <a href="mailto:red_riesgird-acc_pe@esan.edu.pe" class="footer__nav-item">
+              red_riesgird-acc_pe&#64;esan.edu.pe
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enlaces útiles -->
+      <div class="footer__section">
+        <h4 class="footer__section-title">Enlaces Útiles</h4>
+        <nav class="footer__nav" aria-label="Enlaces útiles">
+          @for (link of externalLinks(); track link.id) {
+            <button
+              type="button"
+              class="footer__nav-item text-left"
+              (click)="openExternalLink(link.path)"
+              [attr.aria-label]="'Abrir ' + link.label + ' en nueva pestaña'">
+              {{ link.label }}
+            </button>
+          }
+        </nav>
+      </div>
+    </div>
+
+    <!-- Copyright y enlaces legales -->
+    <div class="footer__copyright">
+      <div class="footer__copyright-text">
+        © {{ currentYear() }} Red RiesGIRD-ACC. Todos los derechos reservados.
+      </div>
+
+      <nav class="footer__copyright-links" aria-label="Enlaces legales">
+        <!-- Enlaces de navegación removidos temporalmente para Angular 19 -->
+      </nav>
+    </div>
+  </div>
+</footer>
