@@ -12,14 +12,9 @@ import { AppStateService } from './shared/services/app-state.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    Navbar,
-    Footer
-  ],
+  imports: [CommonModule, RouterOutlet, Navbar, Footer],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class App implements OnInit {
   // Servicios inyectados
@@ -56,7 +51,8 @@ export class App implements OnInit {
    * Establecer descripción del documento
    */
   private setDocumentDescription(): void {
-    const description = 'Red de Instituciones de Educación Superior para la Gestión Integral del Riesgo de Desastres - Academia del Cambio Climático / Perú';
+    const description =
+      'Red de Instituciones de Educación Superior para la Gestión Integral del Riesgo de Desastres - Academia del Cambio Climático / Perú';
 
     let metaDescription = document.querySelector('meta[name="description"]');
     if (!metaDescription) {

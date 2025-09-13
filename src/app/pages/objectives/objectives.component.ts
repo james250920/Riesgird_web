@@ -6,7 +6,7 @@ import { RIES_INFO } from '../../data';
   selector: 'app-objectives',
   imports: [CommonModule],
   templateUrl: './objectives.component.html',
-  styleUrl: './objectives.component.scss'
+  styleUrl: './objectives.component.scss',
 })
 export class Objectives {
   objetivos = RIES_INFO.objetivos;

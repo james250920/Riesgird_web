@@ -5,7 +5,7 @@ import { NavigationItem } from '../interfaces/common.interface';
  * Servicio para gestionar la navegación de la aplicación
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NavigationService {
   /**
@@ -16,38 +16,38 @@ export class NavigationService {
       id: 'home',
       label: 'Inicio',
       path: '/',
-      icon: 'home'
+      icon: 'home',
     },
     {
       id: 'council',
       label: 'Consejo',
       path: '/consejo',
-      icon: 'people'
+      icon: 'people',
     },
     {
       id: 'objectives',
       label: 'Objetivos',
       path: '/objetivos',
-      icon: 'target'
+      icon: 'target',
     },
     {
       id: 'policies',
       label: 'Lineamientos',
       path: '/lineamientos',
-      icon: 'policy'
+      icon: 'policy',
     },
     {
       id: 'universities',
       label: 'Universidades',
       path: '/universidades',
-      icon: 'school'
+      icon: 'school',
     },
     {
       id: 'contact',
       label: 'Contacto',
       path: '/contacto',
-      icon: 'contact_mail'
-    }
+      icon: 'contact_mail',
+    },
   ];
 
   /**
@@ -57,18 +57,18 @@ export class NavigationService {
     {
       id: 'about',
       label: 'Acerca de',
-      path: '/acerca-de'
+      path: '/acerca-de',
     },
     {
       id: 'privacy',
       label: 'Privacidad',
-      path: '/privacidad'
+      path: '/privacidad',
     },
     {
       id: 'terms',
       label: 'Términos',
-      path: '/terminos'
-    }
+      path: '/terminos',
+    },
   ];
 
   /**
@@ -79,14 +79,14 @@ export class NavigationService {
       id: 'sunedu',
       label: 'SUNEDU',
       path: 'https://www.sunedu.gob.pe',
-      isExternal: true
+      isExternal: true,
     },
     {
       id: 'minedu',
       label: 'MINEDU',
       path: 'https://www.gob.pe/minedu',
-      isExternal: true
-    }
+      isExternal: true,
+    },
   ];
 
   constructor() {}
@@ -95,7 +95,7 @@ export class NavigationService {
    * Obtener item de navegación por ID
    */
   getNavigationItem(id: string): NavigationItem | undefined {
-    return this.mainNavigationItems.find(item => item.id === id);
+    return this.mainNavigationItems.find((item) => item.id === id);
   }
 
   /**

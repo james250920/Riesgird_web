@@ -1,23 +1,21 @@
 <app-navbar></app-navbar>
 <main class="min-h-[calc(100vh-160px)]">
   <div class="app" [class.app--loading]="appState().isLoading">
-  <!-- Skip link para accesibilidad -->
-  <a href="#main-content" class="skip-link">
-    Saltar al contenido principal
-  </a>
+    <!-- Skip link para accesibilidad -->
+    <a href="#main-content" class="skip-link"> Saltar al contenido principal </a>
 
-  <!-- Contenido principal -->
-  <main id="main-content" class="app__main" role="main">
-    <router-outlet></router-outlet>
-  </main>
+    <!-- Contenido principal -->
+    <main id="main-content" class="app__main" role="main">
+      <router-outlet></router-outlet>
+    </main>
 
-  <!-- Loading overlay global -->
-  @if (appState().isLoading) {
-    <div class="app__loading-overlay" role="status" aria-label="Cargando">
-      <div class="loading-spinner" aria-hidden="true"></div>
-      <span class="sr-only">Cargando contenido...</span>
-    </div>
-  }
-</div>
+    <!-- Loading overlay global -->
+    @if (appState().isLoading) {
+      <div class="app__loading-overlay" role="status" aria-label="Cargando">
+        <div class="loading-spinner" aria-hidden="true"></div>
+        <span class="sr-only">Cargando contenido...</span>
+      </div>
+    }
+  </div>
 </main>
 <app-footer></app-footer>

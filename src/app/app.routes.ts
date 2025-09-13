@@ -4,7 +4,7 @@ import { Council } from './pages/council/council.component';
 import { Objectives } from './pages/objectives/objectives.component';
 import { Policies } from './pages/policies/policies.component';
 import { Universities } from './pages/universities/universities.component';
-import { Contact} from './pages/contact/contact.component';
+import { Contact } from './pages/contact/contact.component';
 
 export const routes: Routes = [
   { path: '', component: Home, title: 'RiesGIRD-ACC / Perú' },

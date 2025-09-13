@@ -35,7 +35,7 @@ export abstract class BaseComponentDirective implements BaseComponent, OnInit, O
     errorMessage: this.errorMessage(),
     id: this.id,
     cssClass: this.cssClass,
-    ariaLabel: this.ariaLabel
+    ariaLabel: this.ariaLabel,
   }));
 
   // Estado de la aplicación
@@ -95,9 +95,7 @@ export abstract class BaseComponentDirective implements BaseComponent, OnInit, O
   protected handleError(error: any, customMessage?: string): void {
     console.error('Component error:', error);
 
-    const message = customMessage ||
-                   error?.message ||
-                   'Ha ocurrido un error inesperado';
+    const message = customMessage || error?.message || 'Ha ocurrido un error inesperado';
 
     this.setError(true, message);
     this.setLoading(false);
@@ -109,8 +107,8 @@ export abstract class BaseComponentDirective implements BaseComponent, OnInit, O
   private setupRouterSubscription(): void {
     this.router.events
       .pipe(
-        filter(event => event instanceof NavigationEnd),
-        takeUntil(this.destroy$)
+        filter((event) => event instanceof NavigationEnd),
+        takeUntil(this.destroy$),
       )
       .subscribe((event: NavigationEnd) => {
         this.onNavigationEnd(event);

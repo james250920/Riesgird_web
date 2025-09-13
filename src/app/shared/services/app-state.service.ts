@@ -5,7 +5,7 @@ import { Theme, Language, AppState } from '../interfaces/common.interface';
  * Servicio para gestionar el estado global de la aplicación
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AppStateService {
   // Signals para estado reactivo
