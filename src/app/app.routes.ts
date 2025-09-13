@@ -5,6 +5,7 @@ import { Objectives } from './pages/objectives/objectives.component';
 import { Policies } from './pages/policies/policies.component';
 import { Universities } from './pages/universities/universities.component';
 import { Contact } from './pages/contact/contact.component';
+import { EventsComponent } from './pages/event/events.component';
 
 export const routes: Routes = [
   { path: '', component: Home, title: 'RiesGIRD-ACC / Perú' },
@@ -12,6 +13,7 @@ export const routes: Routes = [
   { path: 'objetivos', component: Objectives, title: 'Objetivos' },
   { path: 'lineamientos', component: Policies, title: 'Lineamientos' },
   { path: 'universidades', component: Universities, title: 'Universidades' },
+  { path: 'eventos', component: EventsComponent, title: 'Eventos' },
   { path: 'contacto', component: Contact, title: 'Contacto' },
   { path: '**', redirectTo: '' },
 ];
