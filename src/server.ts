@@ -9,11 +9,13 @@ const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = join(serverDistFolder, '../browser');
 
 // Serve static files from /browser
-app.use(express.static(browserDistFolder, {
-  maxAge: '1y',
-  index: false,
-  redirect: false,
-}));
+app.use(
+  express.static(browserDistFolder, {
+    maxAge: '1y',
+    index: false,
+    redirect: false,
+  }),
+);
 
 // All other routes should return the index.html
 app.get('*', (req, res) => {

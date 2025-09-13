@@ -3,8 +3,8 @@
   [class.footer--loading]="appState().isLoading"
   [attr.aria-label]="ariaLabel"
   [id]="id"
-  role="contentinfo">
-
+  role="contentinfo"
+>
   <div class="footer__container">
     <!-- Grid principal del footer -->
     <div class="footer__grid">
@@ -14,7 +14,10 @@
           <h3 class="footer__brand-text">RiesGIRD-ACC / Perú</h3>
         </div>
         <div class="footer__section-content">
-          <p>Red de Instituciones de Educación Superior para la Gestión Integral del Riesgo de Desastres - Academia del Cambio Climático</p>
+          <p>
+            Red de Instituciones de Educación Superior para la Gestión Integral del Riesgo de
+            Desastres - Academia del Cambio Climático
+          </p>
           <p><strong>Periodos:</strong> 2024–2027 (Perú), 2024–2026 (LAC)</p>
         </div>
       </div>
@@ -35,9 +38,7 @@
           </div>
           <div class="footer__contact-item">
             <span class="icon" aria-hidden="true">📞</span>
-            <a href="tel:+51998678236" class="footer__nav-item">
-              +51 998 678 236
-            </a>
+            <a href="tel:+51998678236" class="footer__nav-item"> +51 998 678 236 </a>
           </div>
           <div class="footer__contact-item">
             <span class="icon" aria-hidden="true">📧</span>
@@ -57,7 +58,8 @@
               type="button"
               class="footer__nav-item text-left"
               (click)="openExternalLink(link.path)"
-              [attr.aria-label]="'Abrir ' + link.label + ' en nueva pestaña'">
+              [attr.aria-label]="'Abrir ' + link.label + ' en nueva pestaña'"
+            >
               {{ link.label }}
             </button>
           }

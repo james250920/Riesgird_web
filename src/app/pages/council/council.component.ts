@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-council',
   imports: [],
   templateUrl: './council.component.html',
-  styleUrl: './council.component.scss'
+  styleUrl: './council.component.scss',
 })
-export class Council {
-
-}
+export class Council {}

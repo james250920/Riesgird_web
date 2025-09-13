@@ -6,7 +6,7 @@ import { RIES_INFO } from '../../data';
   selector: 'app-universities',
   imports: [CommonModule],
   templateUrl: './universities.component.html',
-  styleUrl: './universities.component.scss'
+  styleUrl: './universities.component.scss',
 })
 export class Universities {
   universidades = RIES_INFO.universidades;

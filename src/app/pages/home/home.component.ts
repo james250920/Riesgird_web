@@ -4,8 +4,6 @@ import { RouterModule } from '@angular/router';
   selector: 'app-home',
   imports: [RouterModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
 })
-export class Home {
-
-}
+export class Home {}

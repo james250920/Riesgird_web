@@ -12,7 +12,7 @@ import { BaseComponentDirective, NavigationService, NavigationItem } from '../..
   standalone: true,
   imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss'
+  styleUrl: './navbar.component.scss',
 })
 export class Navbar extends BaseComponentDirective {
   // Servicios inyectados
@@ -42,7 +42,7 @@ export class Navbar extends BaseComponentDirective {
    * Toggle del menú móvil
    */
   toggleMobileMenu(): void {
-    this._isMenuOpen.update(current => !current);
+    this._isMenuOpen.update((current) => !current);
   }
 
   /**
