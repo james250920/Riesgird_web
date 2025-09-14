@@ -4,6 +4,7 @@ import { RIES_INFO } from '../../data';
 
 @Component({
   selector: "app-events",
+  standalone: true,
   imports: [CommonModule],
   templateUrl: "./events.component.html",
   styleUrls: ["./events.component.scss"],
@@ -17,7 +18,7 @@ export class EventsComponent {
 
   filtrarEventos(filtro: string) {
     this.filtroSeleccionado = filtro;
-    
+
     if (filtro === 'todos') {
       this.eventosFiltrados = this.eventos;
     } else {
