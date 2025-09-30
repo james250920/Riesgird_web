@@ -25,6 +25,12 @@ export class NavigationService {
       icon: 'people',
     },
     {
+      id: 'events',
+      label: 'Eventos',
+      path: '/eventos',
+      icon: 'event',
+    },
+    {
       id: 'objectives',
       label: 'Objetivos',
       path: '/objetivos',
@@ -48,6 +54,7 @@ export class NavigationService {
       path: '/contacto',
       icon: 'contact_mail',
     },
+
   ];
 
   /**
