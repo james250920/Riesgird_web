@@ -1,0 +1,35 @@
+
+.home-main-grid {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.home-logo {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar__logo {
+  height: 8rem;
+  width: auto;
+  max-width: 100%;
+  &:hover {
+    transform: scale(1.02);
+  }
+  @media (max-width: 768px) {
+    height: 4rem;
+  }
+}
+
+.home-content {
+  flex: 1 1 300px;
+  min-width: 250px;
+}
+
+.home-lidera-row {
+  margin-top: 2rem;
+}

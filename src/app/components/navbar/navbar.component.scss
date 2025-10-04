@@ -42,6 +42,8 @@ $transition: 200ms ease-in-out;
   color: #1f2937;
   text-decoration: none;
   transition: color $transition;
+  display: flex;
+  align-items: center;
 
   &:hover {
     color: #3b82f6;
@@ -51,6 +53,20 @@ $transition: 200ms ease-in-out;
     outline: none;
     box-shadow: 0 0 0 2px #3b82f6;
     border-radius: 0.375rem;
+  }
+}
+
+.navbar__logo {
+  height: 3.5rem;
+  width: auto;
+  transition: transform $transition;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  @media (max-width: 768px) {
+    height: 2rem;
   }
 }
 

@@ -41,6 +41,20 @@
   }
 }
 
+// Brand/Logo del footer
+.footer__brand {
+  margin-bottom: 0.5rem;
+}
+
+.footer__logo {
+  height: 3rem;
+  width: auto;
+
+  @media (max-width: 768px) {
+    height: 2.5rem;
+  }
+}
+
 // Navegación
 .footer__nav {
   display: flex;
