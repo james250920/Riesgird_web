@@ -131,7 +131,7 @@ export const RIES_INFO = {
       hora: '09:00',
       modalidad: 'Presencial',
       lugar: 'Universidad ESAN, Lima',
-      imagen: './assets/eventos/conferenciaVII.png',
+      imagen: 'assets/eventos/conferenciaVII.png',
       organizador: 'Red RiesGIRD-ACC / Perú',
       categoria: 'Académico',
       estado: 'Finalizado',
