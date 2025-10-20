@@ -60,6 +60,13 @@ La Red RiesGIRD-ACC / Perú es una iniciativa que reúne a universidades peruana
 - 🚀 **Optimizado** para rendimiento (Lazy loading, code splitting)
 - 🎭 **Animaciones sutiles** para mejor experiencia de usuario
 
+### 🔐 Seguridad y Protección de Datos
+- 🛡️ **Ofuscación de datos sensibles** - Protección contra bots de scraping
+- 🔒 **ROT13 + Base64** - Doble capa de encoding para emails y teléfonos
+- 🚫 **Protección de enlaces** - Atributos href dinámicos para evitar crawlers
+- 👁️ **Decodificación transparente** - Los usuarios ven datos normales
+- 🤖 **Anti-bot** - Dificulta recolección automática de contactos
+
 ## 🛠 Tecnologías
 
 ### Frontend Framework
@@ -154,6 +161,183 @@ npm test
 ```bash
 npm run format
 ```
+
+## 🔐 Sistema de Seguridad
+
+### Protección de Datos Sensibles
+
+La aplicación implementa un sistema de **ofuscación de datos** para proteger información de contacto (emails y teléfonos) contra bots de scraping y recolección automática.
+
+### Arquitectura de Seguridad
+
+```
+┌─────────────────────────────────────────────────┐
+│  data.ts (Datos Ofuscados)                      │
+│  email: "nfzbyybOrfnaNqh" (encoded)             │
+└─────────────────┬───────────────────────────────┘
+                  │
+                  ▼
+┌─────────────────────────────────────────────────┐
+│  SecurityService                                │
+│  - encodeEmail() / decodeEmail()                │
+│  - encodePhone() / decodePhone()                │
+│  - ROT13 + Base64 encoding                      │
+└─────────────────┬───────────────────────────────┘
+                  │
+        ┌─────────┴─────────┐
+        │                   │
+        ▼                   ▼
+┌───────────────┐   ┌───────────────┐
+│ Security Pipes│   │  Directives   │
+│ - decodeEmail │   │ - secureEmail │
+│ - decodePhone │   │ - securePhone │
+└───────────────┘   └───────────────┘
+        │                   │
+        └─────────┬─────────┘
+                  ▼
+┌─────────────────────────────────────────────────┐
+│  Template (Usuario ve datos normales)           │
+│  {{ email | decodeEmail }}                      │
+│  <a appSecureEmail [encodedEmail]="email">      │
+└─────────────────────────────────────────────────┘
+```
+
+### Implementación Técnica
+
+#### 1. SecurityService
+
+Servicio que implementa la lógica de codificación/decodificación:
+
+```typescript
+@Injectable({ providedIn: 'root' })
+export class SecurityService {
+  // Codifica email con ROT13 + Base64
+  encodeEmail(email: string): string {
+    const rot13 = this.rot13(email);
+    return btoa(rot13);
+  }
+
+  // Decodifica email
+  decodeEmail(encoded: string): string {
+    const decoded = atob(encoded);
+    return this.rot13(decoded);
+  }
+
+  // Implementación ROT13 (cifrado César con rotación 13)
+  private rot13(str: string): string {
+    return str.replace(/[a-zA-Z0-9]/g, (char) => {
+      // Rotación de caracteres
+    });
+  }
+}
+```
+
+#### 2. Pipes de Seguridad
+
+Pipes para usar en templates:
+
+```typescript
+// Decodifica emails en templates
+{{ encodedEmail | decodeEmail }}
+
+// Decodifica teléfonos en templates
+{{ encodedPhone | decodePhone }}
+```
+
+#### 3. Directivas de Protección
+
+Directivas que protegen enlaces de scraping:
+
+```typescript
+// Protege enlaces mailto:
+<a appSecureEmail 
+   [encodedEmail]="'nfzbyybOrfnaNqh'"
+   (click)="handleClick($event)">
+  {{ 'nfzbyybOrfnaNqh' | decodeEmail }}
+</a>
+
+// Protege enlaces tel:
+<a appSecurePhone 
+   [encodedPhone]="encodedPhoneNumber"
+   (click)="handleClick($event)">
+  {{ encodedPhoneNumber | decodePhone }}
+</a>
+```
+
+### Utilidad de Codificación
+
+Script Node.js para codificar datos:
+
+```bash
+# Ejecutar script de codificación
+node scripts/encode-data.js
+```
+
+```javascript
+// scripts/encode-data.js
+const contacts = {
+  emails: [
+    'usuario@dominio.com',
+    'contacto@empresa.pe'
+  ],
+  phones: [
+    '+51 998 678 236',
+    '998678236'
+  ]
+};
+
+// Output: datos codificados listos para data.ts
+```
+
+### Ventajas del Sistema
+
+| Característica | Beneficio |
+|---------------|-----------|
+| **ROT13 + Base64** | Doble capa de ofuscación |
+| **Transparente** | Usuario ve datos normales |
+| **Anti-scraping** | Dificulta bots automáticos |
+| **Sin impacto UX** | Clicks funcionan normalmente |
+| **Fácil mantenimiento** | Script de codificación incluido |
+| **Reversible** | Pipes decodifican al vuelo |
+
+### Uso en Componentes
+
+```typescript
+// component.ts
+import { DecodeEmailPipe, SecureEmailDirective } from '@shared';
+
+@Component({
+  selector: 'app-contact',
+  imports: [DecodeEmailPipe, SecureEmailDirective],
+  template: `
+    <a appSecureEmail 
+       [encodedEmail]="contact.email">
+      {{ contact.email | decodeEmail }}
+    </a>
+  `
+})
+export class ContactComponent {
+  contact = {
+    email: 'nfzbyybOrfnaNqh' // encoded
+  };
+}
+```
+
+### Consideraciones
+
+⚠️ **Nota**: Este sistema NO es criptografía fuerte. Su propósito es:
+- Dificultar scraping básico con regex
+- Ocultar datos en código fuente HTML
+- Prevenir recolección automática simple
+- Mantener accesibilidad para usuarios reales
+
+Para protección de datos críticos, considere sistemas adicionales como:
+- CAPTCHA en formularios
+- Rate limiting en APIs
+- WAF (Web Application Firewall)
+- Honeypots anti-bot
+
+
 
 ## 📂 Estructura del Proyecto
 

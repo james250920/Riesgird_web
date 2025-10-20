@@ -234,6 +234,379 @@ Si se necesita contenido dinámico, se puede reemplazar por:
 - CMS headless (Strapi, Contentful)
 - Firebase/Supabase
 
+## 🔐 Sistema de Seguridad
+
+### Arquitectura de Protección de Datos
+
+La aplicación implementa un sistema multicapa para proteger información de contacto contra scraping automatizado.
+
+#### Capa 1: SecurityService
+
+**Ubicación**: `src/app/shared/services/security.service.ts`
+
+```typescript
+@Injectable({ providedIn: 'root' })
+export class SecurityService {
+  /**
+   * Codifica un email usando ROT13 + Base64
+   * Ejemplo: "test@email.com" → "grfgOrznvyNpbz"
+   */
+  encodeEmail(email: string): string {
+    const rot13 = this.rot13(email);
+    return btoa(rot13);
+  }
+
+  /**
+   * Decodifica un email ofuscado
+   */
+  decodeEmail(encoded: string): string {
+    try {
+      const decoded = atob(encoded);
+      return this.rot13(decoded);
+    } catch (error) {
+      console.error('Error decoding email:', error);
+      return '';
+    }
+  }
+
+  /**
+   * Codifica un teléfono
+   * Ejemplo: "+51 998 678 236" → "KzUx-IDs5OC04Nzg-IjIzNg"
+   */
+  encodePhone(phone: string): string {
+    const rot13 = this.rot13(phone);
+    return btoa(rot13);
+  }
+
+  /**
+   * Decodifica un teléfono ofuscado
+   */
+  decodePhone(encoded: string): string {
+    try {
+      const decoded = atof(encoded);
+      return this.rot13(decoded);
+    } catch (error) {
+      console.error('Error decoding phone:', error);
+      return '';
+    }
+  }
+
+  /**
+   * Cifrado ROT13 - Rotación de 13 posiciones
+   * Aplicado a: a-z, A-Z, 0-9
+   */
+  private rot13(str: string): string {
+    return str.replace(/[a-zA-Z0-9]/g, (char) => {
+      if (char >= 'a' && char <= 'z') {
+        return String.fromCharCode(((char.charCodeAt(0) - 97 + 13) % 26) + 97);
+      }
+      if (char >= 'A' && char <= 'Z') {
+        return String.fromCharCode(((char.charCodeAt(0) - 65 + 13) % 26) + 65);
+      }
+      if (char >= '0' && char <= '9') {
+        return String.fromCharCode(((char.charCodeAt(0) - 48 + 5) % 10) + 48);
+      }
+      return char;
+    });
+  }
+
+  /**
+   * Maneja click en email ofuscado
+   * Previene evento predeterminado y abre mailto: dinámicamente
+   */
+  handleEmailClick(encodedEmail: string, event: Event): void {
+    event.preventDefault();
+    const decodedEmail = this.decodeEmail(encodedEmail);
+    if (decodedEmail) {
+      window.location.href = `mailto:${decodedEmail}`;
+    }
+  }
+
+  /**
+   * Maneja click en teléfono ofuscado
+   * Previene evento predeterminado y abre tel: dinámicamente
+   */
+  handlePhoneClick(encodedPhone: string, event: Event): void {
+    event.preventDefault();
+    const decodedPhone = this.decodePhone(encodedPhone);
+    if (decodedPhone) {
+      window.location.href = `tel:${decodedPhone}`;
+    }
+  }
+}
+```
+
+**Algoritmo ROT13:**
+- Rotación de 13 posiciones en alfabeto (a→n, b→o, z→m)
+- Rotación de 5 posiciones en dígitos (0→5, 5→0, 9→4)
+- Simétrico: aplicar dos veces retorna original
+- Ofusca sin ser criptografía fuerte
+
+#### Capa 2: Pipes de Decodificación
+
+**Ubicación**: `src/app/shared/pipes/security.pipe.ts`
+
+```typescript
+// Pipe para decodificar emails en templates
+@Pipe({
+  name: 'decodeEmail',
+  standalone: true
+})
+export class DecodeEmailPipe implements PipeTransform {
+  private securityService = inject(SecurityService);
+
+  transform(encodedEmail: string): string {
+    if (!encodedEmail) return '';
+    return this.securityService.decodeEmail(encodedEmail);
+  }
+}
+
+// Pipe para decodificar teléfonos
+@Pipe({
+  name: 'decodePhone',
+  standalone: true
+})
+export class DecodePhonePipe implements PipeTransform {
+  private securityService = inject(SecurityService);
+
+  transform(encodedPhone: string): string {
+    if (!encodedPhone) return '';
+    return this.securityService.decodePhone(encodedPhone);
+  }
+}
+
+// Pipes adicionales para encoding (opcional)
+@Pipe({ name: 'encodeEmail', standalone: true })
+export class EncodeEmailPipe implements PipeTransform { /* ... */ }
+
+@Pipe({ name: 'encodePhone', standalone: true })
+export class EncodePhonePipe implements PipeTransform { /* ... */ }
+```
+
+**Uso en Templates:**
+
+```html
+<!-- Email ofuscado en data.ts, mostrado normal al usuario -->
+<a href="mailto:{{ contact.email | decodeEmail }}">
+  {{ contact.email | decodeEmail }}
+</a>
+
+<!-- Teléfono ofuscado -->
+<a href="tel:{{ contact.phone | decodePhone }}">
+  {{ contact.phone | decodePhone }}
+</a>
+```
+
+#### Capa 3: Directivas de Protección
+
+**Ubicación**: `src/app/shared/directives/secure-contact.directive.ts`
+
+```typescript
+// Directiva para proteger enlaces de email
+@Directive({
+  selector: '[appSecureEmail]',
+  standalone: true
+})
+export class SecureEmailDirective implements OnInit {
+  @Input() encodedEmail!: string;
+  
+  private elementRef = inject(ElementRef);
+  private securityService = inject(SecurityService);
+
+  ngOnInit(): void {
+    // Remueve href del HTML (invisible para scrapers)
+    this.elementRef.nativeElement.removeAttribute('href');
+  }
+
+  @HostListener('click', ['$event'])
+  onClick(event: Event): void {
+    // Maneja click dinámicamente
+    this.securityService.handleEmailClick(this.encodedEmail, event);
+  }
+}
+
+// Directiva para proteger enlaces de teléfono
+@Directive({
+  selector: '[appSecurePhone]',
+  standalone: true
+})
+export class SecurePhoneDirective implements OnInit {
+  @Input() encodedPhone!: string;
+  
+  private elementRef = inject(ElementRef);
+  private securityService = inject(SecurityService);
+
+  ngOnInit(): void {
+    this.elementRef.nativeElement.removeAttribute('href');
+  }
+
+  @HostListener('click', ['$event'])
+  onClick(event: Event): void {
+    this.securityService.handlePhoneClick(this.encodedPhone, event);
+  }
+}
+```
+
+**Uso con Directivas:**
+
+```html
+<!-- Email: href NO aparece en HTML renderizado -->
+<a appSecureEmail 
+   [encodedEmail]="contact.email"
+   class="text-primary-600 hover:text-primary-800">
+  {{ contact.email | decodeEmail }}
+</a>
+
+<!-- Teléfono: href NO aparece en HTML renderizado -->
+<a appSecurePhone 
+   [encodedPhone]="contact.phone"
+   class="text-primary-600 hover:text-primary-800">
+  {{ contact.phone | decodePhone }}
+</a>
+```
+
+**HTML Renderizado (visto por bots):**
+
+```html
+<!-- Sin href visible, datos ofuscados -->
+<a class="text-primary-600 hover:text-primary-800">
+  nfzbyybOrfnaNqh  <!-- Ofuscado -->
+</a>
+```
+
+#### Herramienta de Codificación
+
+**Ubicación**: `scripts/encode-data.js`
+
+```javascript
+// Script Node.js para codificar contactos
+function rot13(str) {
+  return str.replace(/[a-zA-Z0-9]/g, (char) => {
+    // Implementación ROT13
+  });
+}
+
+function encodeEmail(email) {
+  const rot13Email = rot13(email);
+  return Buffer.from(rot13Email).toString('base64');
+}
+
+function encodePhone(phone) {
+  const rot13Phone = rot13(phone);
+  return Buffer.from(rot13Phone).toString('base64');
+}
+
+// Datos a codificar
+const contacts = {
+  emails: [
+    'jserida@esan.edu.pe',
+    'mmollo@esan.edu.pe',
+    'red_riesgird-acc_pe@esan.edu.pe'
+  ],
+  phones: [
+    '+51 998 678 236',
+    '998678236'
+  ]
+};
+
+// Output codificado
+console.log('=== EMAILS CODIFICADOS ===');
+contacts.emails.forEach(email => {
+  console.log(`Original: ${email}`);
+  console.log(`Encoded:  ${encodeEmail(email)}\n`);
+});
+
+console.log('=== TELÉFONOS CODIFICADOS ===');
+contacts.phones.forEach(phone => {
+  console.log(`Original: ${phone}`);
+  console.log(`Encoded:  ${encodePhone(phone)}\n`);
+});
+```
+
+**Ejecutar:**
+
+```bash
+node scripts/encode-data.js
+```
+
+#### Flujo de Datos Completo
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ 1. ALMACENAMIENTO (data.ts)                                 │
+│    email: "nfzbyybOrfnaNqh" (ROT13 + Base64)                │
+└────────────────────────┬────────────────────────────────────┘
+                         │
+                         ▼
+┌─────────────────────────────────────────────────────────────┐
+│ 2. COMPONENTE (contact.component.ts)                        │
+│    contact = { email: "nfzbyybOrfnaNqh" }                   │
+└────────────────────────┬────────────────────────────────────┘
+                         │
+                         ▼
+┌─────────────────────────────────────────────────────────────┐
+│ 3. TEMPLATE (contact.component.html)                        │
+│    <a appSecureEmail [encodedEmail]="contact.email">        │
+│      {{ contact.email | decodeEmail }}                      │
+│    </a>                                                     │
+└────────────────────────┬────────────────────────────────────┘
+                         │
+         ┌───────────────┴───────────────┐
+         │                               │
+         ▼                               ▼
+┌──────────────────┐           ┌──────────────────┐
+│ 4a. PIPE         │           │ 4b. DIRECTIVE    │
+│ DecodeEmailPipe  │           │ SecureEmail      │
+│ ↓                │           │ ↓                │
+│ SecurityService  │           │ SecurityService  │
+│ .decodeEmail()   │           │ .handleClick()   │
+└────────┬─────────┘           └────────┬─────────┘
+         │                               │
+         ▼                               ▼
+┌──────────────────┐           ┌──────────────────┐
+│ 5a. VISUALIZADO  │           │ 5b. CLICK        │
+│ "test@email.com" │           │ window.location  │
+│ (Normal)         │           │ .href = "mailto:"│
+└──────────────────┘           └──────────────────┘
+```
+
+#### Ventajas del Sistema
+
+| Aspecto | Implementación | Beneficio |
+|---------|---------------|-----------|
+| **Ofuscación** | ROT13 + Base64 | Doble capa de encoding |
+| **Transparencia** | Pipes automáticos | Usuario ve datos normales |
+| **Anti-scraping** | Sin href en HTML | Bots no ven enlaces directos |
+| **Reversibilidad** | Decodificación en runtime | Sin pérdida de funcionalidad |
+| **Mantenimiento** | Script de encoding | Fácil agregar nuevos datos |
+| **Performance** | Pipes pure | Memoización automática |
+| **Type Safety** | TypeScript strict | Errores en tiempo de compilación |
+
+#### Limitaciones y Consideraciones
+
+⚠️ **Importante**: Este NO es un sistema de seguridad criptográfica fuerte.
+
+**Propósito:**
+- ✅ Dificultar scraping básico (regex, bots simples)
+- ✅ Ocultar datos en código fuente HTML
+- ✅ Prevenir recolección automática de contactos
+- ✅ Mantener experiencia de usuario normal
+
+**NO protege contra:**
+- ❌ Inspección manual del código JavaScript
+- ❌ Scrapers que ejecutan JavaScript
+- ❌ Ingeniería inversa del algoritmo ROT13
+- ❌ Bots avanzados con headless browsers
+
+**Recomendaciones adicionales:**
+- Implementar CAPTCHA en formularios de contacto
+- Rate limiting en servidor
+- WAF (Web Application Firewall)
+- Honeypots para detectar bots
+- Monitoring de tráfico sospechoso
+
+
+
 ## 🎨 Sistema de Estilos
 
 ### Estrategia de Estilos

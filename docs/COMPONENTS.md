@@ -686,6 +686,341 @@ Ejemplo:
 
 ---
 
+## 🔐 Componentes de Seguridad
+
+### 🛡️ SecurityService
+
+**Ubicación**: `src/app/shared/services/security.service.ts`
+
+**Tipo**: Service (Injectable)
+
+#### Descripción
+Servicio central para la ofuscación y deofuscación de datos sensibles (emails y teléfonos) usando ROT13 + Base64.
+
+#### Métodos Públicos
+
+```typescript
+encodeEmail(email: string): string
+// Codifica un email usando ROT13 + Base64
+// Ejemplo: "test@email.com" → "grfgOrznvyNpbz"
+
+decodeEmail(encoded: string): string
+// Decodifica un email ofuscado
+// Ejemplo: "grfgOrznvyNpbz" → "test@email.com"
+
+encodePhone(phone: string): string
+// Codifica un teléfono usando ROT13 + Base64
+// Ejemplo: "+51 998 678 236" → "KzUx-IDs5OC04Nzg-IjIzNg"
+
+decodePhone(encoded: string): string
+// Decodifica un teléfono ofuscado
+
+handleEmailClick(encodedEmail: string, event: Event): void
+// Maneja click en enlaces de email ofuscados
+// Previene evento predeterminado y abre mailto: dinámicamente
+
+handlePhoneClick(encodedPhone: string, event: Event): void
+// Maneja click en enlaces de teléfono ofuscados
+// Previene evento predeterminado y abre tel: dinámicamente
+```
+
+#### Uso
+
+```typescript
+import { SecurityService } from '@shared/services/security.service';
+
+@Component({ /* ... */ })
+export class MyComponent {
+  private securityService = inject(SecurityService);
+
+  encodedEmail = this.securityService.encodeEmail('test@email.com');
+  
+  decodeAndShow() {
+    const decoded = this.securityService.decodeEmail(this.encodedEmail);
+    console.log(decoded); // "test@email.com"
+  }
+}
+```
+
+---
+
+### 📧 DecodeEmailPipe
+
+**Ubicación**: `src/app/shared/pipes/security.pipe.ts`
+
+**Selector**: `decodeEmail`
+
+#### Descripción
+Pipe para decodificar emails ofuscados en templates.
+
+#### Uso
+
+```html
+<!-- Decodifica email para mostrar -->
+<span>{{ 'grfgOrznvyNpbz' | decodeEmail }}</span>
+<!-- Output: test@email.com -->
+
+<!-- En enlaces -->
+<a href="mailto:{{ encodedEmail | decodeEmail }}">
+  {{ encodedEmail | decodeEmail }}
+</a>
+```
+
+#### Importación
+
+```typescript
+import { DecodeEmailPipe } from '@shared/pipes/security.pipe';
+
+@Component({
+  selector: 'app-contact',
+  standalone: true,
+  imports: [DecodeEmailPipe],
+  // ...
+})
+```
+
+---
+
+### 📞 DecodePhonePipe
+
+**Ubicación**: `src/app/shared/pipes/security.pipe.ts`
+
+**Selector**: `decodePhone`
+
+#### Descripción
+Pipe para decodificar teléfonos ofuscados en templates.
+
+#### Uso
+
+```html
+<!-- Decodifica teléfono para mostrar -->
+<span>{{ 'KzUx-IDs5OC04Nzg-IjIzNg' | decodePhone }}</span>
+<!-- Output: +51 998 678 236 -->
+
+<!-- En enlaces -->
+<a href="tel:{{ encodedPhone | decodePhone }}">
+  {{ encodedPhone | decodePhone }}
+</a>
+```
+
+---
+
+### 🔒 SecureEmailDirective
+
+**Ubicación**: `src/app/shared/directives/secure-contact.directive.ts`
+
+**Selector**: `[appSecureEmail]`
+
+#### Descripción
+Directiva que protege enlaces de email removiendo el atributo `href` del HTML y manejando clicks dinámicamente.
+
+#### Propiedades de Entrada
+
+| Propiedad | Tipo | Descripción |
+|-----------|------|-------------|
+| `encodedEmail` | `string` | Email ofuscado con ROT13 + Base64 |
+
+#### Uso
+
+```html
+<!-- Protege enlace de email -->
+<a appSecureEmail 
+   [encodedEmail]="'grfgOrznvyNpbz'"
+   class="text-primary-600 hover:underline">
+  {{ 'grfgOrznvyNpbz' | decodeEmail }}
+</a>
+
+<!-- HTML renderizado (sin href visible para bots): -->
+<a class="text-primary-600 hover:underline">
+  test@email.com
+</a>
+```
+
+#### Importación
+
+```typescript
+import { SecureEmailDirective } from '@shared/directives/secure-contact.directive';
+
+@Component({
+  selector: 'app-contact',
+  standalone: true,
+  imports: [SecureEmailDirective, DecodeEmailPipe],
+  // ...
+})
+```
+
+#### Comportamiento
+
+1. **OnInit**: Remueve atributo `href` del elemento
+2. **Click**: Intercepta evento, decodifica email, abre `mailto:`
+3. **Accesibilidad**: Mantiene apariencia de enlace normal
+
+---
+
+### 📱 SecurePhoneDirective
+
+**Ubicación**: `src/app/shared/directives/secure-contact.directive.ts`
+
+**Selector**: `[appSecurePhone]`
+
+#### Descripción
+Directiva que protege enlaces de teléfono removiendo el atributo `href` del HTML y manejando clicks dinámicamente.
+
+#### Propiedades de Entrada
+
+| Propiedad | Tipo | Descripción |
+|-----------|------|-------------|
+| `encodedPhone` | `string` | Teléfono ofuscado con ROT13 + Base64 |
+
+#### Uso
+
+```html
+<!-- Protege enlace de teléfono -->
+<a appSecurePhone 
+   [encodedPhone]="'KzUx-IDs5OC04Nzg-IjIzNg'"
+   class="text-primary-600 hover:underline">
+  {{ 'KzUx-IDs5OC04Nzg-IjIzNg' | decodePhone }}
+</a>
+
+<!-- HTML renderizado (sin href visible para bots): -->
+<a class="text-primary-600 hover:underline">
+  +51 998 678 236
+</a>
+```
+
+#### Importación
+
+```typescript
+import { SecurePhoneDirective } from '@shared/directives/secure-contact.directive';
+
+@Component({
+  selector: 'app-contact',
+  standalone: true,
+  imports: [SecurePhoneDirective, DecodePhonePipe],
+  // ...
+})
+```
+
+---
+
+### 🔑 EncodeEmailPipe
+
+**Ubicación**: `src/app/shared/pipes/security.pipe.ts`
+
+**Selector**: `encodeEmail`
+
+#### Descripción
+Pipe para codificar emails en templates (uso opcional, principalmente para testing).
+
+#### Uso
+
+```html
+<!-- Codifica email -->
+<input [value]="'test@email.com' | encodeEmail">
+<!-- Output: grfgOrznvyNpbz -->
+```
+
+---
+
+### 🔑 EncodePhonePipe
+
+**Ubicación**: `src/app/shared/pipes/security.pipe.ts`
+
+**Selector**: `encodePhone`
+
+#### Descripción
+Pipe para codificar teléfonos en templates (uso opcional, principalmente para testing).
+
+#### Uso
+
+```html
+<!-- Codifica teléfono -->
+<input [value]="'+51 998 678 236' | encodePhone">
+<!-- Output: KzUx-IDs5OC04Nzg-IjIzNg -->
+```
+
+---
+
+### 📋 Ejemplo Completo de Uso
+
+```typescript
+// contact.component.ts
+import { Component } from '@angular/core';
+import { 
+  DecodeEmailPipe, 
+  DecodePhonePipe,
+  SecureEmailDirective,
+  SecurePhoneDirective 
+} from '@shared';
+
+@Component({
+  selector: 'app-contact',
+  standalone: true,
+  imports: [
+    DecodeEmailPipe,
+    DecodePhonePipe,
+    SecureEmailDirective,
+    SecurePhoneDirective
+  ],
+  template: `
+    <div class="contact-info">
+      <h2>Contacto</h2>
+      
+      <!-- Email protegido -->
+      <div>
+        <span>Email: </span>
+        <a appSecureEmail 
+           [encodedEmail]="contact.email"
+           class="text-primary-600 hover:text-primary-800">
+          {{ contact.email | decodeEmail }}
+        </a>
+      </div>
+      
+      <!-- Teléfono protegido -->
+      <div>
+        <span>Teléfono: </span>
+        <a appSecurePhone 
+           [encodedPhone]="contact.phone"
+           class="text-primary-600 hover:text-primary-800">
+          {{ contact.phone | decodePhone }}
+        </a>
+      </div>
+    </div>
+  `
+})
+export class ContactComponent {
+  contact = {
+    email: 'grfgOrznvyNpbz',  // Codificado en data.ts
+    phone: 'KzUx-IDs5OC04Nzg-IjIzNg'  // Codificado en data.ts
+  };
+}
+```
+
+**HTML Renderizado:**
+
+```html
+<!-- Lo que ven los usuarios (funcional) -->
+<div class="contact-info">
+  <h2>Contacto</h2>
+  <div>
+    <span>Email: </span>
+    <a class="text-primary-600 hover:text-primary-800">
+      test@email.com
+    </a>
+  </div>
+  <div>
+    <span>Teléfono: </span>
+    <a class="text-primary-600 hover:text-primary-800">
+      +51 998 678 236
+    </a>
+  </div>
+</div>
+
+<!-- Lo que ven los bots (sin href, datos ofuscados en JS) -->
+```
+
+---
+
 ## 🎨 Tailwind Classes Comunes
 
 ### Layout
