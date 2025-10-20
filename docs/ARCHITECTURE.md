@@ -797,7 +797,112 @@ jobs:
           publish_dir: ./dist/riesgird-web/browser
 ```
 
-## 🛣️ Roadmap Futuro
+## � SEO y Optimización para Motores de Búsqueda
+
+### Arquitectura SEO
+
+La aplicación implementa una estrategia SEO completa con múltiples capas de optimización para maximizar la visibilidad en motores de búsqueda.
+
+#### SeoService
+
+**Ubicación**: `src/app/shared/services/seo.service.ts`
+
+Servicio centralizado para gestión dinámica de SEO que proporciona:
+
+- **Meta Tags Management**: Actualización de title, description, keywords, author
+- **Open Graph**: Meta tags para Facebook y redes sociales
+- **Twitter Card**: Optimización para compartir en Twitter
+- **Canonical URLs**: Prevención de contenido duplicado
+- **Structured Data**: Generación de JSON-LD para Schema.org
+- **Dynamic Injection**: Inyección de schemas en runtime
+
+```typescript
+@Injectable({ providedIn: 'root' })
+export class SeoService {
+  // Métodos principales
+  updateMetaTags(config: SeoConfig): void;
+  updateTitle(title: string): void;
+  updateDescription(description: string): void;
+  updateCanonicalUrl(url: string): void;
+  generateOrganizationSchema(): string;
+  generateEventSchema(eventData): string;
+  injectStructuredData(schema: string, id: string): void;
+}
+```
+
+#### Structured Data (JSON-LD)
+
+**Organization Schema:**
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "RiesGIRD-ACC Perú",
+  "url": "https://james250920.github.io/Riesgird_web/",
+  "logo": "https://james250920.github.io/Riesgird_web/assets/logo.svg",
+  "areaServed": "PE",
+  "foundingDate": "2024"
+}
+```
+
+**Event Schema:**
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "VII Conferencia Internacional",
+  "startDate": "2024-11-15",
+  "location": {
+    "@type": "Place",
+    "address": { "@type": "PostalAddress", "addressCountry": "PE" }
+  }
+}
+```
+
+#### Configuración de Crawlers
+
+**robots.txt** (`public/robots.txt`):
+```
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Sitemap: https://james250920.github.io/Riesgird_web/sitemap.xml
+```
+
+**sitemap.xml** (`public/sitemap.xml`):
+```xml
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://james250920.github.io/Riesgird_web/</loc>
+    <priority>1.0</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <!-- ... secciones: #consejo, #eventos, #objetivos, etc. -->
+</urlset>
+```
+
+#### Meta Tags Implementados
+
+**index.html** incluye:
+- ✅ Title y Description optimizados
+- ✅ Keywords relevantes
+- ✅ Open Graph (Facebook/LinkedIn)
+- ✅ Twitter Card
+- ✅ Canonical URL
+- ✅ Geo tags (PE)
+- ✅ Theme color
+- ✅ JSON-LD inicial
+
+#### Performance SEO
+
+- **Core Web Vitals**: LCP < 2.5s, FID < 100ms, CLS < 0.1
+- **Code Splitting**: Vendor chunks separados
+- **Lazy Loading**: Imágenes con loading="lazy"
+- **Resource Hints**: Preconnect para fonts
+- **Minificación**: esbuild para CSS/JS
+
+## �🛣️ Roadmap Futuro
 
 ### Mejoras Planificadas
 
@@ -813,9 +918,10 @@ jobs:
    - Newsletter subscription
 
 3. **SEO y Accesibilidad**
+   - ✅ Meta tags dinámicos (COMPLETADO)
+   - ✅ Schema.org markup (COMPLETADO)
+   - ✅ Sitemap.xml (COMPLETADO)
    - Server-side rendering (SSR)
-   - Meta tags dinámicos
-   - Schema.org markup
    - WCAG 2.1 AA compliance
 
 4. **Internacionalización**
@@ -831,3 +937,4 @@ jobs:
 ---
 
 **Última actualización**: Octubre 2025
+
