@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RIES_INFO } from '../../data';
-import { Council } from '../council/council.component';
 
 @Component({
   selector: 'app-policies',
-  imports: [CommonModule,Council],
+  imports: [CommonModule],
   templateUrl: './policies.component.html',
   styleUrl: './policies.component.scss',
 })

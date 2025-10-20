@@ -1,5 +1,5 @@
 
-<section class="bg-gradient-to-b from-sky-50 to-white">
+<section id="inicio" class="bg-gradient-to-b from-sky-50 to-white">
   <div class="max-w-6xl mx-auto px-4 py-16">
     <div class="home-main-grid">
       <div class="home-logo">
@@ -11,8 +11,8 @@
           Gestión del riesgo de desastres y adaptación al cambio climático, de modo transversal, en el sistema de educación superior del Perú.
         </p>
         <div class="mt-6 flex gap-3">
-          <a [routerLink]="['/objetivos']" class="px-5 py-3 rounded-xl bg-sky-600 text-white">Ver Objetivos</a>
-          <a [routerLink]="['/universidades']" class="px-5 py-3 rounded-xl border">Universidades</a>
+          <a href="#objetivos" class="px-5 py-3 rounded-xl bg-sky-600 text-white">Ver Objetivos</a>
+          <a href="#universidades" class="px-5 py-3 rounded-xl border">Universidades</a>
         </div>
       </div>
     </div>
@@ -26,8 +26,24 @@
         <div class="font-semibold">RiesGIRD-ACC / LAC · 2024–2026</div>
       </div>
     </div>
-    <app-council></app-council>
-    <app-events></app-events>
+    <div id="consejo">
+      <app-council></app-council>
+    </div>
+    <div id="eventos">
+      <app-events></app-events>
+    </div>
+    <div id="objetivos">
+      <app-objectives></app-objectives>
+    </div>
+    <div id="universidades">
+      <app-universities></app-universities>
+    </div>
+    <div id="politicas">
+      <app-policies></app-policies>
+    </div>
+    <div id="contacto">
+      <app-contact></app-contact>
+    </div>
   </div>
   
 </section>

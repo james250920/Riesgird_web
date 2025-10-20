@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RIES_INFO } from '../../data';
-import {EventsComponent} from '../event/events.component';
-import { Council } from '../council/council.component';
 
 @Component({
   selector: 'app-objectives',
-  imports: [CommonModule, EventsComponent, Council],
+  imports: [CommonModule],
   templateUrl: './objectives.component.html',
   styleUrl: './objectives.component.scss',
 })

@@ -7,7 +7,7 @@
 >
   <div class="navbar__container">
     <!-- Brand/Logo -->
-    <a routerLink="/" class="navbar__brand" [attr.aria-label]="'Ir a página de inicio'">
+    <a href="#inicio" class="navbar__brand" [attr.aria-label]="'Ir a página de inicio'" (click)="scrollToTop($event)">
       <img src="assets/logo.svg" alt="RiesGIRD-ACC / Perú" class="navbar__logo" />
     </a>
 
@@ -15,12 +15,10 @@
     <nav class="navbar__nav" role="navigation" aria-label="Navegación principal">
       @for (item of navigationItems(); track trackByNavItem($index, item)) {
         <a
-          [routerLink]="item.path"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+          [href]="item.path"
           class="navbar__nav-item"
           [attr.aria-label]="'Ir a ' + item.label"
-          (click)="onNavigationItemClick(item)"
+          (click)="onNavigationItemClick(item, $event)"
         >
           {{ item.label }}
         </a>
@@ -51,12 +49,10 @@
       <nav class="navbar__mobile-nav">
         @for (item of navigationItems(); track trackByNavItem($index, item)) {
           <a
-            [routerLink]="item.path"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+            [href]="item.path"
             class="navbar__mobile-nav-item"
             [attr.aria-label]="'Ir a ' + item.label"
-            (click)="onNavigationItemClick(item)"
+            (click)="onNavigationItemClick(item, $event)"
           >
             {{ item.label }}
           </a>

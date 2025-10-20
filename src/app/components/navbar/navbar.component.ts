@@ -1,5 +1,5 @@
 import { Component, signal, computed, inject } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { BaseComponentDirective, NavigationService, NavigationItem } from '../../shared';
 
@@ -10,7 +10,7 @@ import { BaseComponentDirective, NavigationService, NavigationItem } from '../..
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
@@ -60,15 +60,42 @@ export class Navbar extends BaseComponentDirective {
   }
 
   /**
+   * Scroll suave al inicio de la página
+   */
+  scrollToTop(event?: Event): void {
+    event?.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+
+  /**
    * Manejar click en item de navegación
    */
-  onNavigationItemClick(item: NavigationItem): void {
+  onNavigationItemClick(item: NavigationItem, event?: Event): void {
     // Cerrar menú móvil en navegación
     this.closeMobileMenu();
 
     // Si es enlace externo, abrir en nueva pestaña
     if (item.isExternal && item.path.startsWith('http')) {
       window.open(item.path, '_blank', 'noopener,noreferrer');
+      return;
+    }
+
+    // Si es un enlace con ancla (#), hacer scroll suave
+    if (item.path.startsWith('#')) {
+      event?.preventDefault();
+      const targetId = item.path.substring(1); // Quitar el #
+      const targetElement = document.getElementById(targetId);
+      
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest'
+        });
+      }
       return;
     }
 
