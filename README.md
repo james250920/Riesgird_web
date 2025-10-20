@@ -337,6 +337,220 @@ Para protección de datos críticos, considere sistemas adicionales como:
 - WAF (Web Application Firewall)
 - Honeypots anti-bot
 
+## 🔍 SEO y Optimización para Buscadores
+
+### Estrategia SEO Implementada
+
+La aplicación está completamente optimizada para motores de búsqueda con una estrategia multicapa que incluye meta tags, structured data y configuraciones específicas para crawlers.
+
+### Componentes SEO
+
+#### 1. Meta Tags Optimizados
+
+**index.html** incluye meta tags completos para:
+
+- **Meta tags básicos**: title, description, keywords, author
+- **Open Graph (Facebook)**: og:title, og:description, og:image, og:url, og:type
+- **Twitter Card**: twitter:card, twitter:title, twitter:description, twitter:image
+- **Geo tags**: geo.region, geo.placename (Perú)
+- **Robots**: index, follow, revisit-after
+- **Canonical URL**: Previene contenido duplicado
+
+```html
+<!-- Ejemplo de meta tags en index.html -->
+<meta name="description" content="Red de 27 universidades peruanas..." />
+<meta property="og:title" content="RiesGIRD-ACC Perú" />
+<meta property="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://james250920.github.io/Riesgird_web/" />
+```
+
+#### 2. Structured Data (Schema.org)
+
+Implementación de **JSON-LD** para datos estructurados:
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "RiesGIRD-ACC Perú",
+  "url": "https://james250920.github.io/Riesgird_web/",
+  "logo": "https://james250920.github.io/Riesgird_web/assets/logo.svg",
+  "description": "Red de universidades peruanas...",
+  "areaServed": "PE",
+  "foundingDate": "2024"
+}
+```
+
+**Tipos de Schema implementados:**
+- ✅ Organization (datos de la organización)
+- ✅ Event (eventos académicos)
+- ✅ EducationalOrganization (universidades miembro)
+
+#### 3. SeoService
+
+Servicio Angular para gestión dinámica de SEO:
+
+```typescript
+import { SeoService } from '@shared/services/seo.service';
+
+@Component({ /* ... */ })
+export class MyComponent {
+  private seoService = inject(SeoService);
+
+  ngOnInit() {
+    // Actualizar meta tags dinámicamente
+    this.seoService.updateMetaTags({
+      title: 'Eventos | RiesGIRD-ACC Perú',
+      description: 'Calendario de eventos académicos...',
+      keywords: 'eventos, conferencias, capacitación',
+      url: 'https://james250920.github.io/Riesgird_web/#eventos'
+    });
+
+    // Inyectar structured data
+    const eventSchema = this.seoService.generateEventSchema({
+      name: 'VII Conferencia Internacional',
+      description: 'Evento sobre gestión de riesgos...',
+      startDate: '2024-11-15',
+      endDate: '2024-11-17',
+      location: 'Lima, Perú'
+    });
+    this.seoService.injectStructuredData(eventSchema, 'event-schema');
+  }
+}
+```
+
+**Métodos disponibles:**
+- `updateMetaTags(config)` - Actualizar todos los meta tags
+- `updateTitle(title)` - Actualizar título
+- `updateDescription(description)` - Actualizar descripción
+- `updateCanonicalUrl(url)` - Actualizar URL canónica
+- `generateOrganizationSchema()` - Generar schema de organización
+- `generateEventSchema(event)` - Generar schema de evento
+- `generateEducationalOrganizationSchema(university)` - Schema de universidad
+- `injectStructuredData(schema, id)` - Inyectar JSON-LD en DOM
+- `resetToDefault()` - Restaurar configuración por defecto
+
+#### 4. robots.txt
+
+**Ubicación**: `public/robots.txt`
+
+```
+User-agent: *
+Allow: /
+
+# Permitir todos los recursos
+Allow: /assets/
+Allow: /*.js
+Allow: /*.css
+Allow: /*.svg
+
+# Bloquear rutas administrativas
+Disallow: /admin/
+Disallow: /private/
+
+# Sitemap
+Sitemap: https://james250920.github.io/Riesgird_web/sitemap.xml
+```
+
+#### 5. sitemap.xml
+
+**Ubicación**: `public/sitemap.xml`
+
+Mapa del sitio con todas las secciones:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://james250920.github.io/Riesgird_web/</loc>
+    <lastmod>2025-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://james250920.github.io/Riesgird_web/#consejo</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- ... más URLs -->
+</urlset>
+```
+
+**Secciones incluidas:**
+- Página principal (priority 1.0)
+- Inicio (priority 0.9)
+- Consejo Directivo (priority 0.8)
+- Eventos (priority 0.9, changefreq weekly)
+- Objetivos (priority 0.8)
+- Universidades (priority 0.8)
+- Lineamientos (priority 0.7)
+- Contacto (priority 0.8)
+
+### Beneficios SEO
+
+| Aspecto | Implementación | Beneficio |
+|---------|---------------|-----------|
+| **Indexación** | Meta tags + sitemap.xml | Google indexa todas las secciones |
+| **Rich Snippets** | JSON-LD Schema.org | Resultados enriquecidos en SERP |
+| **Social Media** | Open Graph + Twitter Card | Vista previa atractiva al compartir |
+| **Rendimiento** | Preconnect, minificación | Mejor ranking por velocidad |
+| **Accesibilidad** | ARIA, semantic HTML | Mejora SEO y UX |
+| **Mobile-First** | Responsive design | Google prioriza mobile |
+| **Canonical URLs** | Link rel="canonical" | Evita penalización por duplicados |
+
+### Verificación SEO
+
+#### Google Search Console
+
+1. Ir a [Google Search Console](https://search.google.com/search-console)
+2. Agregar propiedad: `https://james250920.github.io/Riesgird_web/`
+3. Verificar propiedad (método HTML tag)
+4. Enviar sitemap: `https://james250920.github.io/Riesgird_web/sitemap.xml`
+
+#### Herramientas de Validación
+
+```bash
+# Validar sitemap
+https://www.xml-sitemaps.com/validate-xml-sitemap.html
+
+# Validar robots.txt
+https://www.google.com/webmasters/tools/robots-testing-tool
+
+# Test de datos estructurados
+https://search.google.com/test/rich-results
+
+# Test Open Graph
+https://www.opengraph.xyz/
+
+# PageSpeed Insights
+https://pagespeed.web.dev/
+```
+
+### Checklist SEO ✅
+
+- ✅ **Meta tags** completos (title, description, keywords)
+- ✅ **Open Graph** para Facebook/LinkedIn
+- ✅ **Twitter Card** para Twitter
+- ✅ **Structured Data** con JSON-LD
+- ✅ **Sitemap.xml** actualizado
+- ✅ **Robots.txt** configurado
+- ✅ **Canonical URLs** implementadas
+- ✅ **Alt text** en imágenes
+- ✅ **Semantic HTML** (header, nav, main, footer, section)
+- ✅ **Responsive design** (mobile-first)
+- ✅ **Performance optimizado** (Vite, code splitting)
+- ✅ **HTTPS** (GitHub Pages)
+- ✅ **Clean URLs** (sin parámetros innecesarios)
+
+### Mejoras Futuras
+
+- 📊 **Google Analytics** - Tracking de visitas
+- 🎯 **Google Tag Manager** - Gestión de tags
+- 📈 **Search Console Integration** - Monitoreo de indexación
+- 🌐 **Multi-idioma** - English version con hreflang
+- 📝 **Blog section** - Contenido actualizado regularmente
+- 🔗 **Backlinks** - Enlaces desde universidades miembro
+
 
 
 ## 📂 Estructura del Proyecto

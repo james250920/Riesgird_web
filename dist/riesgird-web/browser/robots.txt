@@ -1,0 +1,30 @@
+User-agent: *
+Allow: /
+
+# Permitir todos los recursos
+Allow: /assets/
+Allow: /*.js
+Allow: /*.css
+Allow: /*.svg
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.webp
+
+# Bloquear rutas administrativas (si existen en futuro)
+Disallow: /admin/
+Disallow: /private/
+
+# Evitar indexar archivos específicos
+Disallow: /*.json$
+Disallow: /scripts/
+
+# Crawl-delay (opcional, para no sobrecargar el servidor)
+Crawl-delay: 1
+
+# Sitemap
+Sitemap: https://james250920.github.io/Riesgird_web/sitemap.xml
+
+# Información adicional
+# RiesGIRD-ACC Perú
+# Red de Instituciones de Educación Superior para la 
+# Gestión Integral del Riesgo de Desastres y Adaptación al Cambio Climático
