@@ -125,74 +125,20 @@ export const RIES_INFO = {
   eventos: [
     {
       id: 1,
-      titulo: 'Seminario Internacional de Gestión de Riesgos de Desastres',
+      titulo: 'VII Foro Internacional Interuniversitario de Gestión Integral del Riesgo de Desastres y Adaptación al Cambio Climático',
       descripcion: 'Un evento académico que reúne a expertos internacionales para discutir las mejores prácticas en gestión de riesgos y adaptación al cambio climático.',
-      fecha: '2024-03-15',
+      fecha: '2024-06-12',
       hora: '09:00',
-      modalidad: 'Presencial y Virtual',
+      modalidad: 'Presencial',
       lugar: 'Universidad ESAN, Lima',
-      imagen: '/assets/eventos/seminario-grd.jpg',
+      imagen: './assets/eventos/conferenciaVII.png',
       organizador: 'Red RiesGIRD-ACC / Perú',
       categoria: 'Académico',
-      estado: 'Próximo',
+      estado: 'Finalizado',
       enlaceInscripcion: 'https://example.com/inscripcion-seminario',
       contacto: {
         email: 'red_riesgird-acc_pe@esan.edu.pe',
         telefono: '+51 998 678 236'
-      }
-    },
-    {
-      id: 2,
-      titulo: 'Taller de Capacitación en Adaptación Climática',
-      descripcion: 'Taller práctico dirigido a investigadores y gestores públicos sobre estrategias de adaptación al cambio climático en el contexto peruano.',
-      fecha: '2024-02-28',
-      hora: '14:00',
-      modalidad: 'Virtual',
-      lugar: 'Plataforma Zoom',
-      imagen: '/assets/eventos/taller-adaptacion.jpg',
-      organizador: 'Universidad Nacional de Ingeniería',
-      categoria: 'Capacitación',
-      estado: 'Finalizado',
-      enlaceInscripcion: null,
-      contacto: {
-        email: 'capacitacion@uni.edu.pe',
-        telefono: '+51 999 123 456'
-      }
-    },
-    {
-      id: 3,
-      titulo: 'Conferencia sobre Resiliencia Urbana',
-      descripcion: 'Conferencia magistral sobre estrategias de resiliencia urbana frente a desastres naturales, con casos de estudio de ciudades latinoamericanas.',
-      fecha: '2024-04-20',
-      hora: '10:30',
-      modalidad: 'Híbrido',
-      lugar: 'Universidad Nacional Mayor de San Marcos',
-      imagen: '/assets/eventos/conferencia-resiliencia.jpg',
-      organizador: 'Universidad Nacional Mayor de San Marcos',
-      categoria: 'Conferencia',
-      estado: 'Próximo',
-      enlaceInscripcion: 'https://example.com/inscripcion-conferencia',
-      contacto: {
-        email: 'eventos@unmsm.edu.pe',
-        telefono: '+51 998 765 432'
-      }
-    },
-    {
-      id: 4,
-      titulo: 'Workshop de Investigación Colaborativa',
-      descripcion: 'Espacio de intercambio y colaboración entre investigadores de las universidades miembro de la red para desarrollar proyectos conjuntos.',
-      fecha: '2024-01-18',
-      hora: '09:00',
-      modalidad: 'Presencial',
-      lugar: 'Universidad Nacional Agraria La Molina',
-      imagen: '/assets/eventos/workshop-investigacion.jpg',
-      organizador: 'Red RiesGIRD-ACC / Perú',
-      categoria: 'Workshop',
-      estado: 'Finalizado',
-      enlaceInscripcion: null,
-      contacto: {
-        email: 'investigacion@lamolina.edu.pe',
-        telefono: '+51 997 654 321'
       }
     }
   ],
