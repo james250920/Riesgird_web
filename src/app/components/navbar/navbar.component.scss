@@ -139,12 +139,22 @@ $transition: 200ms ease-in-out;
 }
 
 .navbar__mobile-icon {
-  width: 1.25rem;
-  height: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
   transition: transform $transition;
 
-  &.open {
-    transform: rotate(90deg);
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    stroke: #374151;
+    transition: stroke $transition;
+  }
+
+  &:hover svg {
+    stroke: #3b82f6;
   }
 }
 
