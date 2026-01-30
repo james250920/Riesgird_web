@@ -13,48 +13,59 @@ export class NavigationService {
    */
   public readonly mainNavigationItems: NavigationItem[] = [
     {
-      id: 'home',
+      id: 'inicio',
       label: 'Inicio',
       path: '#inicio',
       icon: 'home',
     },
     {
-      id: 'council',
-      label: 'Consejo',
-      path: '#consejo',
+      id: 'sobre-nosotros',
+      label: 'Quiénes Somos',
+      path: '#sobre-nosotros',
+      icon: 'info',
+    },
+    {
+      id: 'directorio',
+      label: 'Directorio',
+      path: '#directorio',
       icon: 'people',
     },
     {
-      id: 'events',
-      label: 'Eventos',
-      path: '#eventos',
-      icon: 'event',
+      id: 'aliados',
+      label: 'Aliados',
+      path: '#aliados',
+      icon: 'handshake',
     },
     {
-      id: 'objectives',
-      label: 'Objetivos',
-      path: '#objetivos',
-      icon: 'target',
+      id: 'membresia',
+      label: 'Membresía',
+      path: '#membresia',
+      icon: 'card_membership',
     },
     {
-      id: 'policies',
-      label: 'Lineamientos',
-      path: '#politicas',
-      icon: 'policy',
+      id: 'asambleas',
+      label: 'Asambleas',
+      path: '#asambleas',
+      icon: 'groups',
     },
     {
-      id: 'universities',
-      label: 'Universidades',
-      path: '#universidades',
-      icon: 'school',
+      id: 'plan-trabajo',
+      label: 'Plan de Trabajo',
+      path: '#plan-trabajo',
+      icon: 'assignment',
     },
     {
-      id: 'contact',
+      id: 'memorias',
+      label: 'Memorias',
+      path: '#memorias',
+      icon: 'library_books',
+    },
+    {
+      id: 'contacto',
       label: 'Contacto',
       path: '#contacto',
       icon: 'contact_mail',
     },
-
   ];
 
   /**
@@ -62,19 +73,19 @@ export class NavigationService {
    */
   public readonly footerNavigationItems: NavigationItem[] = [
     {
-      id: 'about',
-      label: 'Acerca de',
-      path: '/acerca-de',
+      id: 'estatuto',
+      label: 'Estatuto',
+      path: '#estructura',
     },
     {
-      id: 'privacy',
-      label: 'Privacidad',
-      path: '/privacidad',
+      id: 'membresia',
+      label: 'Únete a la Red',
+      path: '#membresia',
     },
     {
-      id: 'terms',
-      label: 'Términos',
-      path: '/terminos',
+      id: 'contacto',
+      label: 'Contacto',
+      path: '#contacto',
     },
   ];
 
@@ -83,15 +94,27 @@ export class NavigationService {
    */
   public readonly externalLinks: NavigationItem[] = [
     {
-      id: 'sunedu',
-      label: 'SUNEDU',
-      path: 'https://www.sunedu.gob.pe',
+      id: 'cenepred',
+      label: 'CENEPRED',
+      path: 'https://www.gob.pe/cenepred',
       isExternal: true,
     },
     {
-      id: 'minedu',
-      label: 'MINEDU',
-      path: 'https://www.gob.pe/minedu',
+      id: 'indeci',
+      label: 'INDECI',
+      path: 'https://www.gob.pe/indeci',
+      isExternal: true,
+    },
+    {
+      id: 'minam',
+      label: 'MINAM',
+      path: 'https://www.gob.pe/minam',
+      isExternal: true,
+    },
+    {
+      id: 'sunedu',
+      label: 'SUNEDU',
+      path: 'https://www.sunedu.gob.pe',
       isExternal: true,
     },
   ];
