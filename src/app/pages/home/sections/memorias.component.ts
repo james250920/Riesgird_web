@@ -1,8 +1,8 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { 
-  MEMORIAS_GESTION, 
-  CONGRESOS_INTERNACIONALES, 
+import {
+  MEMORIAS_GESTION,
+  CONGRESOS_INTERNACIONALES,
   ALBUM_FOTOGRAFICO,
   MemoriaGestion,
   CongresoInternacional
@@ -32,24 +32,24 @@ import {
         <div class="flex justify-center gap-4 mb-12 flex-wrap">
           <button
             (click)="activeSection.set('memoria')"
-            [class]="activeSection() === 'memoria' ? 
-              'px-6 py-3 bg-indigo-600 text-white rounded-xl font-semibold shadow-lg' : 
+            [class]="activeSection() === 'memoria' ?
+              'px-6 py-3 bg-indigo-600 text-white rounded-xl font-semibold shadow-lg' :
               'px-6 py-3 bg-white text-gray-700 rounded-xl font-medium hover:bg-gray-50 border border-gray-200'"
             class="transition-all duration-300">
             📊 Memoria 2024-2025
           </button>
           <button
             (click)="activeSection.set('congresos')"
-            [class]="activeSection() === 'congresos' ? 
-              'px-6 py-3 bg-indigo-600 text-white rounded-xl font-semibold shadow-lg' : 
+            [class]="activeSection() === 'congresos' ?
+              'px-6 py-3 bg-indigo-600 text-white rounded-xl font-semibold shadow-lg' :
               'px-6 py-3 bg-white text-gray-700 rounded-xl font-medium hover:bg-gray-50 border border-gray-200'"
             class="transition-all duration-300">
             🎓 Congresos Internacionales
           </button>
           <button
             (click)="activeSection.set('album')"
-            [class]="activeSection() === 'album' ? 
-              'px-6 py-3 bg-indigo-600 text-white rounded-xl font-semibold shadow-lg' : 
+            [class]="activeSection() === 'album' ?
+              'px-6 py-3 bg-indigo-600 text-white rounded-xl font-semibold shadow-lg' :
               'px-6 py-3 bg-white text-gray-700 rounded-xl font-medium hover:bg-gray-50 border border-gray-200'"
             class="transition-all duration-300">
             📸 Álbum Fotográfico
@@ -262,11 +262,11 @@ import {
     :host {
       display: block;
     }
-    
+
     .animate-fade-in {
       animation: fadeIn 0.4s ease-out;
     }
-    
+
     @keyframes fadeIn {
       from {
         opacity: 0;

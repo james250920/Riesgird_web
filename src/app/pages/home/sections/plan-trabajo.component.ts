@@ -1,8 +1,8 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { 
-  RED_INVESTIGADORES, 
-  EXPERTOS_GOBERNANZA, 
+import {
+  RED_INVESTIGADORES,
+  EXPERTOS_GOBERNANZA,
   PROGRAMAS_ESPECIALIZACION,
   LABORATORIOS_TERRITORIALES,
   BRIGADAS,
@@ -37,8 +37,8 @@ import {
           @for (tab of tabs; track tab.id) {
             <button
               (click)="activeTab.set(tab.id)"
-              [class]="activeTab() === tab.id ? 
-                'px-5 py-3 bg-white text-cyan-700 rounded-xl font-semibold shadow-md' : 
+              [class]="activeTab() === tab.id ?
+                'px-5 py-3 bg-white text-cyan-700 rounded-xl font-semibold shadow-md' :
                 'px-5 py-3 text-gray-600 rounded-xl font-medium hover:text-cyan-600'"
               class="transition-all duration-300 text-sm md:text-base">
               {{ tab.label }}
@@ -323,7 +323,7 @@ import {
                       </div>
                       @if (evento.enlaceInscripcion) {
                         <div class="flex-shrink-0 flex items-center">
-                          <a [href]="evento.enlaceInscripcion" target="_blank" 
+                          <a [href]="evento.enlaceInscripcion" target="_blank"
                              class="px-5 py-3 bg-cyan-600 text-white font-semibold rounded-xl hover:bg-cyan-700 transition-colors shadow-lg hover:shadow-xl inline-flex items-center gap-2">
                             Inscribirse
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -346,11 +346,11 @@ import {
     :host {
       display: block;
     }
-    
+
     .animate-fade-in {
       animation: fadeIn 0.4s ease-out;
     }
-    
+
     @keyframes fadeIn {
       from {
         opacity: 0;

@@ -27,8 +27,8 @@ import { ASAMBLEAS, Asamblea } from '../../../data/riesgird-data';
           @for (asamblea of asambleas; track asamblea.anio) {
             <button
               (click)="selectAsamblea(asamblea)"
-              [class]="selectedAsamblea()?.anio === asamblea.anio ? 
-                'px-8 py-4 bg-rose-600 text-white rounded-2xl font-bold text-lg shadow-xl scale-105' : 
+              [class]="selectedAsamblea()?.anio === asamblea.anio ?
+                'px-8 py-4 bg-rose-600 text-white rounded-2xl font-bold text-lg shadow-xl scale-105' :
                 'px-8 py-4 bg-white text-gray-700 rounded-2xl font-semibold text-lg hover:bg-gray-50 transition-all border border-gray-200 hover:border-rose-200'"
               class="transition-all duration-300">
               {{ asamblea.anio }}
@@ -71,8 +71,8 @@ import { ASAMBLEAS, Asamblea } from '../../../data/riesgird-data';
               <div class="flex flex-wrap gap-2 mb-6 border-b border-gray-100 pb-4">
                 <button
                   (click)="activeTab.set('agenda')"
-                  [class]="activeTab() === 'agenda' ? 
-                    'px-4 py-2 bg-rose-100 text-rose-700 rounded-lg font-semibold' : 
+                  [class]="activeTab() === 'agenda' ?
+                    'px-4 py-2 bg-rose-100 text-rose-700 rounded-lg font-semibold' :
                     'px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium'"
                   class="transition-colors">
                   Agenda
@@ -80,8 +80,8 @@ import { ASAMBLEAS, Asamblea } from '../../../data/riesgird-data';
                 @if (asamblea.acuerdos.length > 0) {
                   <button
                     (click)="activeTab.set('acuerdos')"
-                    [class]="activeTab() === 'acuerdos' ? 
-                      'px-4 py-2 bg-rose-100 text-rose-700 rounded-lg font-semibold' : 
+                    [class]="activeTab() === 'acuerdos' ?
+                      'px-4 py-2 bg-rose-100 text-rose-700 rounded-lg font-semibold' :
                       'px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium'"
                     class="transition-colors">
                     Acuerdos
@@ -90,8 +90,8 @@ import { ASAMBLEAS, Asamblea } from '../../../data/riesgird-data';
                 @if (asamblea.fotos.length > 0) {
                   <button
                     (click)="activeTab.set('fotos')"
-                    [class]="activeTab() === 'fotos' ? 
-                      'px-4 py-2 bg-rose-100 text-rose-700 rounded-lg font-semibold' : 
+                    [class]="activeTab() === 'fotos' ?
+                      'px-4 py-2 bg-rose-100 text-rose-700 rounded-lg font-semibold' :
                       'px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium'"
                     class="transition-colors">
                     Fotos
@@ -100,8 +100,8 @@ import { ASAMBLEAS, Asamblea } from '../../../data/riesgird-data';
                 @if (asamblea.documentos.length > 0) {
                   <button
                     (click)="activeTab.set('documentos')"
-                    [class]="activeTab() === 'documentos' ? 
-                      'px-4 py-2 bg-rose-100 text-rose-700 rounded-lg font-semibold' : 
+                    [class]="activeTab() === 'documentos' ?
+                      'px-4 py-2 bg-rose-100 text-rose-700 rounded-lg font-semibold' :
                       'px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium'"
                     class="transition-colors">
                     Documentos
@@ -182,11 +182,11 @@ import { ASAMBLEAS, Asamblea } from '../../../data/riesgird-data';
     :host {
       display: block;
     }
-    
+
     .animate-fade-in {
       animation: fadeIn 0.4s ease-out;
     }
-    
+
     @keyframes fadeIn {
       from {
         opacity: 0;

@@ -115,18 +115,18 @@ import { SECRETARIA_TECNICA } from '../../../data/riesgird-data';
               <div class="grid md:grid-cols-2 gap-5">
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-2">Nombre completo</label>
-                  <input 
-                    type="text" 
-                    [(ngModel)]="formData.nombre" 
+                  <input
+                    type="text"
+                    [(ngModel)]="formData.nombre"
                     name="nombre"
                     class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
                     placeholder="Tu nombre">
                 </div>
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-2">Correo electrónico</label>
-                  <input 
-                    type="email" 
-                    [(ngModel)]="formData.correo" 
+                  <input
+                    type="email"
+                    [(ngModel)]="formData.correo"
                     name="correo"
                     class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
                     placeholder="tu@correo.edu.pe">
@@ -134,17 +134,17 @@ import { SECRETARIA_TECNICA } from '../../../data/riesgird-data';
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Universidad / Institución</label>
-                <input 
-                  type="text" 
-                  [(ngModel)]="formData.institucion" 
+                <input
+                  type="text"
+                  [(ngModel)]="formData.institucion"
                   name="institucion"
                   class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
                   placeholder="Nombre de tu universidad">
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Asunto</label>
-                <select 
-                  [(ngModel)]="formData.asunto" 
+                <select
+                  [(ngModel)]="formData.asunto"
                   name="asunto"
                   class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all bg-white">
                   <option value="">Selecciona un asunto</option>
@@ -157,14 +157,14 @@ import { SECRETARIA_TECNICA } from '../../../data/riesgird-data';
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Mensaje</label>
-                <textarea 
-                  [(ngModel)]="formData.mensaje" 
+                <textarea
+                  [(ngModel)]="formData.mensaje"
                   name="mensaje"
                   rows="5"
                   class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all resize-none"
                   placeholder="Escribe tu mensaje aquí..."></textarea>
               </div>
-              <button 
+              <button
                 type="submit"
                 [disabled]="isSubmitting()"
                 class="w-full py-4 bg-sky-600 text-white font-semibold rounded-xl hover:bg-sky-700 transition-all shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
@@ -203,11 +203,11 @@ import { SECRETARIA_TECNICA } from '../../../data/riesgird-data';
     :host {
       display: block;
     }
-    
+
     .animate-fade-in {
       animation: fadeIn 0.4s ease-out;
     }
-    
+
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -222,7 +222,7 @@ import { SECRETARIA_TECNICA } from '../../../data/riesgird-data';
 })
 export class ContactoComponent {
   secretaria = SECRETARIA_TECNICA;
-  
+
   formData = {
     nombre: '',
     correo: '',
@@ -236,12 +236,12 @@ export class ContactoComponent {
 
   onSubmit() {
     this.isSubmitting.set(true);
-    
+
     // Simular envío
     setTimeout(() => {
       this.isSubmitting.set(false);
       this.showSuccess.set(true);
-      
+
       // Reset form
       this.formData = {
         nombre: '',
