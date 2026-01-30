@@ -61,8 +61,11 @@ import { ASAMBLEAS, Asamblea } from '../../../data/riesgird-data';
                   </div>
                 </div>
                 @if (asamblea.acuerdos.length === 0) {
-                  <span class="px-4 py-2 bg-amber-100 text-amber-700 rounded-full font-semibold">
-                    📅 Programada
+                  <span class="px-4 py-2 bg-amber-100 text-amber-700 rounded-full font-semibold inline-flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                    Programada
                   </span>
                 }
               </div>
@@ -144,7 +147,10 @@ import { ASAMBLEAS, Asamblea } from '../../../data/riesgird-data';
                             <span class="text-white font-medium">Foto {{ i + 1 }}</span>
                           </div>
                           <div class="w-full h-full flex items-center justify-center">
-                            <span class="text-4xl group-hover:scale-125 transition-transform">📷</span>
+                            <svg class="w-10 h-10 text-rose-400 group-hover:scale-125 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
                           </div>
                         </div>
                       }

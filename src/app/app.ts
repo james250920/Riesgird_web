@@ -61,7 +61,7 @@ export class App implements OnInit {
     const organizationSchema = this.seoService.generateOrganizationSchema();
     this.seoService.injectStructuredData(organizationSchema, 'org-schema');
 
-    console.log('✅ SEO initialized successfully');
+    console.log('[SEO] Initialized successfully');
   }
 
   /**

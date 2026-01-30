@@ -23,7 +23,9 @@ import { INFO_RIESGIRD } from '../../../data/riesgird-data';
         <!-- Logo Animation -->
         <div class="mb-8 animate-fade-in-down">
           <div class="inline-flex items-center justify-center w-32 h-32 bg-white/10 backdrop-blur-lg rounded-3xl border border-white/20 shadow-2xl mb-6 hover:scale-110 transition-transform duration-500">
-            <span class="text-6xl">🌍</span>
+            <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+            </svg>
           </div>
         </div>
 

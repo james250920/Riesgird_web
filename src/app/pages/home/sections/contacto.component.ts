@@ -33,8 +33,10 @@ import { SECRETARIA_TECNICA } from '../../../data/riesgird-data';
               <div class="relative z-10">
                 <h3 class="text-2xl font-bold mb-6">Secretaría Técnica</h3>
                 <div class="flex items-center gap-4 mb-6">
-                  <div class="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center text-3xl">
-                    👩‍💼
+                  <div class="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center">
+                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                    </svg>
                   </div>
                   <div>
                     <p class="text-xl font-semibold">{{ secretaria.nombre }}</p>
@@ -66,14 +68,18 @@ import { SECRETARIA_TECNICA } from '../../../data/riesgird-data';
             <div class="grid grid-cols-2 gap-4">
               <a href="#membresia" class="group bg-gradient-to-br from-violet-50 to-purple-50 rounded-2xl p-6 text-center hover:shadow-xl transition-all border border-violet-100 hover:border-violet-300">
                 <div class="w-14 h-14 bg-violet-100 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                  <span class="text-2xl">📋</span>
+                  <svg class="w-7 h-7 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                  </svg>
                 </div>
                 <h4 class="font-bold text-gray-900 mb-1">Proceso de Membresía</h4>
                 <p class="text-sm text-gray-500">Cómo unirse a la red</p>
               </a>
               <a href="#" class="group bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-6 text-center hover:shadow-xl transition-all border border-emerald-100 hover:border-emerald-300">
                 <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                  <span class="text-2xl">📄</span>
+                  <svg class="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                  </svg>
                 </div>
                 <h4 class="font-bold text-gray-900 mb-1">Documentos</h4>
                 <p class="text-sm text-gray-500">Formatos y modelos</p>
